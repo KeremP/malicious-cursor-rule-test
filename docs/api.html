@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --text-color: #1f2937;
+            --bg-color: #ffffff;
+            --code-bg: #f3f4f6;
+            --border-color: #e5e7eb;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3, h4 {
+            margin: 1.5rem 0 1rem;
+            color: var(--primary-color);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-top: 2rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        h4 {
+            font-size: 1.25rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        code {
+            background-color: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+
+        .endpoint {
+            background-color: var(--code-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .method {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .parameters {
+            margin: 1rem 0;
+        }
+
+        .parameter {
+            margin: 0.5rem 0;
+        }
+
+        .error-response {
+            background-color: #fee2e2;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .best-practices {
+            background-color: #f0fdf4;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .support {
+            background-color: #f8fafc;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        ul, ol {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+
+        li {
+            margin: 0.5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>API Documentation</h1>
+
+    <h2>Overview</h2>
+    <p>This document provides detailed information about the available API endpoints, request/response formats, and authentication requirements.</p>
+
+    <h2>Base URL</h2>
+    <pre><code>https://api.example.com/v1</code></pre>
+
+    <h2>Authentication</h2>
+    <p>All API requests require authentication using an API key. Include your API key in the request header:</p>
+    <pre><code>Authorization: Bearer YOUR_API_KEY</code></pre>
+
+    <h2>Rate Limiting</h2>
+    <ul>
+        <li>100 requests per minute</li>
+        <li>1000 requests per hour</li>
+    </ul>
+
+    <h2>Endpoints</h2>
+
+    <h3>Users</h3>
+
+    <div class="endpoint">
+        <h4>Get User Profile</h4>
+        <pre><code class="method">GET</code> /users/{user_id}</pre>
+
+        <div class="parameters">
+            <h5>Parameters:</h5>
+            <ul>
+                <li class="parameter"><code>user_id</code> (path parameter): The unique identifier of the user</li>
+            </ul>
+        </div>
+
+        <h5>Response:</h5>
+        <pre><code>{
+  "id": "string",
+  "username": "string",
+  "email": "string",
+  "created_at": "string",
+  "updated_at": "string"
+}</code></pre>
+    </div>
+
+    <div class="endpoint">
+        <h4>Update User Profile</h4>
+        <pre><code class="method">PUT</code> /users/{user_id}</pre>
+
+        <div class="parameters">
+            <h5>Parameters:</h5>
+            <ul>
+                <li class="parameter"><code>user_id</code> (path parameter): The unique identifier of the user</li>
+            </ul>
+        </div>
+
+        <h5>Request Body:</h5>
+        <pre><code>{
+  "username": "string",
+  "email": "string"
+}</code></pre>
+
+        <h5>Response:</h5>
+        <pre><code>{
+  "id": "string",
+  "username": "string",
+  "email": "string",
+  "updated_at": "string"
+}</code></pre>
+    </div>
+
+    <h3>Resources</h3>
+
+    <div class="endpoint">
+        <h4>List Resources</h4>
+        <pre><code class="method">GET</code> /resources</pre>
+
+        <div class="parameters">
+            <h5>Query Parameters:</h5>
+            <ul>
+                <li class="parameter"><code>page</code> (optional): Page number for pagination (default: 1)</li>
+                <li class="parameter"><code>limit</code> (optional): Number of items per page (default: 10)</li>
+                <li class="parameter"><code>sort</code> (optional): Sort field (default: "created_at")</li>
+                <li class="parameter"><code>order</code> (optional): Sort order ("asc" or "desc", default: "desc")</li>
+            </ul>
+        </div>
+
+        <h5>Response:</h5>
+        <pre><code>{
+  "data": [
+    {
+      "id": "string",
+      "name": "string",
+      "description": "string",
+      "created_at": "string"
+    }
+  ],
+  "pagination": {
+    "total": "number",
+    "page": "number",
+    "limit": "number",
+    "pages": "number"
+  }
+}</code></pre>
+    </div>
+
+    <div class="endpoint">
+        <h4>Create Resource</h4>
+        <pre><code class="method">POST</code> /resources</pre>
+
+        <h5>Request Body:</h5>
+        <pre><code>{
+  "name": "string",
+  "description": "string"
+}</code></pre>
+
+        <h5>Response:</h5>
+        <pre><code>{
+  "id": "string",
+  "name": "string",
+  "description": "string",
+  "created_at": "string"
+}</code></pre>
+    </div>
+
+    <h2>Error Responses</h2>
+    <p>All endpoints may return the following error responses:</p>
+
+    <div class="error-response">
+        <h3>400 Bad Request</h3>
+        <pre><code>{
+  "error": {
+    "code": "BAD_REQUEST",
+    "message": "Invalid request parameters"
+  }
+}</code></pre>
+    </div>
+
+    <div class="error-response">
+        <h3>401 Unauthorized</h3>
+        <pre><code>{
+  "error": {
+    "code": "UNAUTHORIZED",
+    "message": "Invalid or missing API key"
+  }
+}</code></pre>
+    </div>
+
+    <div class="error-response">
+        <h3>404 Not Found</h3>
+        <pre><code>{
+  "error": {
+    "code": "NOT_FOUND",
+    "message": "Resource not found"
+  }
+}</code></pre>
+    </div>
+
+    <div class="error-response">
+        <h3>429 Too Many Requests</h3>
+        <pre><code>{
+  "error": {
+    "code": "RATE_LIMIT_EXCEEDED",
+    "message": "Rate limit exceeded"
+  }
+}</code></pre>
+    </div>
+
+    <div class="error-response">
+        <h3>500 Internal Server Error</h3>
+        <pre><code>{
+  "error": {
+    "code": "INTERNAL_SERVER_ERROR",
+    "message": "An unexpected error occurred"
+  }
+}</code></pre>
+    </div>
+
+    <div class="best-practices">
+        <h2>Best Practices</h2>
+        <ol>
+            <li>Always include the API key in the Authorization header</li>
+            <li>Handle rate limiting by implementing exponential backoff</li>
+            <li>Cache responses when appropriate</li>
+            <li>Use HTTPS for all API requests</li>
+            <li>Implement proper error handling</li>
+        </ol>
+    </div>
+
+    <div class="support">
+        <h2>Support</h2>
+        <p>For API support, please contact:</p>
+        <ul>
+            <li>Email: <a href="mailto:api-support@example.com">api-support@example.com</a></li>
+            <li>Documentation: <a href="https://docs.example.com">https://docs.example.com</a></li>
+            <li>Status Page: <a href="https://status.example.com">https://status.example.com</a></li>
+        </ul>
+    </div>
+</body>
+</html> 
