@@ -1,0 +1,1 @@
+# malicious-cursor-rule-test
